@@ -1,0 +1,2 @@
+model_path: '../models/dxf\Montagem - AX3.dxf'
+layers: ['PES', 'EXTENSAO', 'TRONCO', 'CABECA', 'BRACO', 'PARA']

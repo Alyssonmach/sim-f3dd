@@ -169,3 +169,11 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignore HTML renderization
+*render.html
+
+temp/*
+.vscode/*
+*simulation.3dd
+models/*dwg

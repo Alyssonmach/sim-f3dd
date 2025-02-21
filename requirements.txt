@@ -1,0 +1,16 @@
+# Python Version: 3.12.8
+matplotlib==3.7.5
+networkx==3.1
+pyvista==0.44.2
+pyvista[jupyter] # correção de erro de renderização html
+trame-vtk==2.8.14
+trame==3.7.6
+trimesh==4.5.3
+pyglet==1.5.31
+PyQt5==5.15.11
+ezdxf==1.1.4
+streamlit==1.41.1
+openseespy==3.7.0.4
+opsvis==1.1.13
+vfo==0.0.19
+pyframe3dd==0.0.2.1
