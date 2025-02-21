@@ -167,7 +167,7 @@ else:
 st.title('Simulador Vibra-torre [Trixel]')
 
 if not os.path.exists("interface/data/render.html"):
-    st.session_state['plotter'].export_html("data/render.html")
+    st.session_state['plotter'].export_html("interface/data/render.html")
    
 with open("interface/data/render.html", "r") as f:
         html_content = f.read()
