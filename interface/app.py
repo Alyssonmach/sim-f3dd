@@ -8,7 +8,7 @@ from view_structure import plot_by_nodes_and_conexions_streamlit
 import os
 import unicodedata
 
-yaml_file = 'parameters.yaml'
+yaml_file = 'interface/parameters.yaml'
 with open(yaml_file, 'r') as file:
     data = yaml.load(file, Loader = yaml.FullLoader)
 
