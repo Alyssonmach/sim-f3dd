@@ -2,7 +2,7 @@ import streamlit as st
 import yaml
 import sys
 
-sys.path.append('../dxf-extract/')
+sys.path.append('dxf-extract/')
 from extract_model import dxf_extraction
 from view_structure import plot_by_nodes_and_conexions_streamlit
 import os
@@ -11,7 +11,6 @@ import unicodedata
 yaml_file = 'interface/parameters.yaml'
 with open(yaml_file, 'r') as file:
     data = yaml.load(file, Loader = yaml.FullLoader)
-
 
 
 def prepare_model(dxf_path: str, layers: list) -> tuple:
@@ -47,7 +46,7 @@ def remove_accents(input_str):
 
 def make_3dd(data, nodes, conexions):
      
-    with open('data/simulation.3dd', 'w') as file:
+    with open('interface/data/simulation.3dd', 'w') as file:
         
         simulation_name = remove_accents(data['units']['simulation_name'])
         file.write(f'{simulation_name} ({data["units"]["force_unit"]}, {data["units"]["length_unit"]}, {data["units"]["mass_unit"]})\n\n')
@@ -167,10 +166,10 @@ else:
 
 st.title('Simulador Vibra-torre [Trixel]')
 
-if not os.path.exists("data/render.html"):
+if not os.path.exists("interface/data/render.html"):
     st.session_state['plotter'].export_html("data/render.html")
    
-with open("data/render.html", "r") as f:
+with open("interface/data/render.html", "r") as f:
         html_content = f.read()
 
 st.warning('A escolha de componentes de torre será adicionada em breve...')
