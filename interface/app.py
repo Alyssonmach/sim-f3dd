@@ -277,7 +277,7 @@ with st.expander('Configuração da Simulação', expanded = True):
 
     make_3dd(data, nodes, conexions)
 
-    with open("data/simulation.3dd", "r") as file:
+    with open("interface/data/simulation.3dd", "r") as file:
         simulation_file = file.read()
 
     st.download_button(
