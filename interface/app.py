@@ -158,23 +158,24 @@ if 'nodes' not in st.session_state or 'conexions' not in st.session_state or 'pl
     (nodes, conexions) = prepare_model(dxf_path = data['model_path'], layers = data['layers'])
     st.session_state['nodes'] = nodes
     st.session_state['conexions'] = conexions
-    st.session_state['plotter'] = plot_by_nodes_and_conexions_streamlit(nodes_list = nodes, conexions_list = conexions)
+    #st.session_state['plotter'] = plot_by_nodes_and_conexions_streamlit(nodes_list = nodes, conexions_list = conexions)
 else:
     nodes = st.session_state['nodes']
     conexions = st.session_state['conexions']
-    plotter = st.session_state['plotter']
+    #plotter = st.session_state['plotter']
 
 st.title('Simulador Vibra-torre [Trixel]')
 
 if not os.path.exists("interface/data/render.html"):
-    st.session_state['plotter'].export_html("interface/data/render.html")
+    #st.session_state['plotter'].export_html("interface/data/render.html")
+    pass
    
-with open("interface/data/render.html", "r") as f:
-        html_content = f.read()
+# with open("interface/data/render.html", "r") as f:
+#         html_content = f.read()
 
-st.warning('A escolha de componentes de torre será adicionada em breve...')
-with st.expander('Visualização da Estrutura', expanded = True):
-    st.components.v1.html(html_content, height = 700, scrolling = True)
+# st.warning('A escolha de componentes de torre será adicionada em breve...')
+# with st.expander('Visualização da Estrutura', expanded = True):
+#     st.components.v1.html(html_content, height = 700, scrolling = True)
 
 with st.expander('Configuração da Simulação', expanded = True):
 
