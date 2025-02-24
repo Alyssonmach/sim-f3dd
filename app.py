@@ -160,12 +160,15 @@ with st.expander('Configuração da Simulação', expanded = True):
     post_processing_parameters = {'nA': nA, 'modes_to_animate': modes_to_animate, 'pan_rate': pan_rate}
     data['post_processing_parameters'] = post_processing_parameters
 
-    make_3dd(data, nodes, conexions)
+    
 
     if not os.path.exists("data"):
         os.makedirs("data")
 
-    with open("data/simulation.3dd", "r") as file:
+    simulation_file_path = "data/simulation.3dd"
+    make_3dd(data, nodes, conexions)
+    
+    with open(simulation_file_path, "r") as file:
         simulation_file = file.read()
 
     st.download_button(
