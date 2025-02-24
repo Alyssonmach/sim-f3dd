@@ -14,3 +14,4 @@ openseespy==3.7.0.4
 opsvis==1.1.13
 vfo==0.0.19
 pyframe3dd==0.0.2.1
+plotly==6.0.0
