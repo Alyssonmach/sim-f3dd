@@ -2,15 +2,16 @@ import streamlit as st
 import yaml
 import sys
 
-sys.path.append('dxf-extract/')
+sys.path.append('../dxf-extract/')
 from extract_model import dxf_extraction
 from view_structure import plot_by_nodes_and_conexions_streamlit
 import os
 import unicodedata
 
-yaml_file = 'interface/parameters.yaml'
+yaml_file = 'parameters.yaml'
 with open(yaml_file, 'r') as file:
     data = yaml.load(file, Loader = yaml.FullLoader)
+
 
 
 def prepare_model(dxf_path: str, layers: list) -> tuple:
@@ -46,7 +47,7 @@ def remove_accents(input_str):
 
 def make_3dd(data, nodes, conexions):
      
-    with open('interface/data/simulation.3dd', 'w') as file:
+    with open('data/simulation.3dd', 'w') as file:
         
         simulation_name = remove_accents(data['units']['simulation_name'])
         file.write(f'{simulation_name} ({data["units"]["force_unit"]}, {data["units"]["length_unit"]}, {data["units"]["mass_unit"]})\n\n')
@@ -158,24 +159,23 @@ if 'nodes' not in st.session_state or 'conexions' not in st.session_state or 'pl
     (nodes, conexions) = prepare_model(dxf_path = data['model_path'], layers = data['layers'])
     st.session_state['nodes'] = nodes
     st.session_state['conexions'] = conexions
-    #st.session_state['plotter'] = plot_by_nodes_and_conexions_streamlit(nodes_list = nodes, conexions_list = conexions)
+    st.session_state['plotter'] = plot_by_nodes_and_conexions_streamlit(nodes_list = nodes, conexions_list = conexions)
 else:
     nodes = st.session_state['nodes']
     conexions = st.session_state['conexions']
-    #plotter = st.session_state['plotter']
+    plotter = st.session_state['plotter']
 
 st.title('Simulador Vibra-torre [Trixel]')
 
-if not os.path.exists("interface/data/render.html"):
-    #st.session_state['plotter'].export_html("interface/data/render.html")
-    pass
+if not os.path.exists("data/render.html"):
+    st.session_state['plotter'].export_html("data/render.html")
    
-# with open("interface/data/render.html", "r") as f:
-#         html_content = f.read()
+with open("data/render.html", "r") as f:
+        html_content = f.read()
 
-# st.warning('A escolha de componentes de torre será adicionada em breve...')
-# with st.expander('Visualização da Estrutura', expanded = True):
-#     st.components.v1.html(html_content, height = 700, scrolling = True)
+st.warning('A escolha de componentes de torre será adicionada em breve...')
+with st.expander('Visualização da Estrutura', expanded = True):
+    st.components.v1.html(html_content, height = 700, scrolling = True)
 
 with st.expander('Configuração da Simulação', expanded = True):
 
@@ -277,7 +277,7 @@ with st.expander('Configuração da Simulação', expanded = True):
 
     make_3dd(data, nodes, conexions)
 
-    with open("interface/data/simulation.3dd", "r") as file:
+    with open("data/simulation.3dd", "r") as file:
         simulation_file = file.read()
 
     st.download_button(

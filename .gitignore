@@ -175,4 +175,4 @@ cython_debug/
 
 temp/*
 .vscode/*
-models/*dwg
+*simulation.3dd
