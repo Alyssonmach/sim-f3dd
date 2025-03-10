@@ -12,8 +12,8 @@ def test():
         None
     '''
 
-    #data = dxf_extraction('../models/dxf/generico_400kv.dxf')
-    data = dxf_extraction('../models/dxf/Montagem - AX3.dxf')
+    data = dxf_extraction('../models/dxf/pernas/perna-9m.dxf')
+    #data = dxf_extraction('../models/dxf/Montagem - AX3.dxf')
 
     msp = data.get_modelspace()
     print(f'Objeto com as Ligações:{msp}\n\n')

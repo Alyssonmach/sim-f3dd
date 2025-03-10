@@ -23,28 +23,46 @@
 #            a simple Makefile for Frame3DD
 ## 
 
+# Definição de variáveis
 SHELL = /bin/sh
-
 CC = gcc
-# CFLAGS = -Wall -c -O 
-  CFLAGS = -c -O 
+CFLAGS = -c -O 
 LDFLAGS = -lm
-SOURCES =  main.c frame3dd.c frame3dd_io.c coordtrans.c eig.c HPGmatrix.c HPGutil.c NRutil.c 
-OBJECTS = $(SOURCES:.c=.o)
-EXECUTEABLE = frame3dd
 
-all : $(SOURCES) $(EXECUTEABLE)
+# Pasta de saída
+OUTDIR = out
 
-$(EXECUTEABLE) : $(OBJECTS) 
+# Lista de arquivos-fonte
+SOURCES = main.c frame3dd.c frame3dd_io.c coordtrans.c eig.c HPGmatrix.c HPGutil.c NRutil.c 
+
+# Gera os arquivos objeto na pasta out/
+OBJECTS = $(patsubst %.c, $(OUTDIR)/%.o, $(SOURCES))
+
+# Nome do executável dentro da pasta out/
+EXECUTABLE = $(OUTDIR)/frame3dd
+
+# Regra principal
+all: $(OUTDIR) $(EXECUTABLE)
+
+# Criação da pasta out/
+$(OUTDIR):
+	mkdir -p $(OUTDIR)
+
+# Linkagem final para criar o executável
+$(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
-  
-.c.o : 
+
+# Regra para compilar arquivos .c em .o dentro de out/
+$(OUTDIR)/%.o: %.c | $(OUTDIR)
 	$(CC) $(CFLAGS) $< -o $@
 
-clean :
-	rm -rf *.o
+# Limpa os arquivos compilados
+clean:
+	rm -rf $(OUTDIR)
 
-install :
-	mv frame3dd /usr/local/bin/.
+# Instala o executável
+install: all
+	mv $(EXECUTABLE) /usr/local/bin/.
+
 
 
