@@ -24,7 +24,9 @@ def prepare_model(dxf_path: str, layers = '') -> tuple:
     if layers != '':
         combination_layers_name = data.combine_layers_names(name_layers = layers_name, ignored_layers = ['0', 'Defpoints'])
         layers_dict = data.combine_layers(layers_dict = layers_dict, new_layers_info = combination_layers_name)
-
-    (nodes, conexions) = data.generate_frame3dd_data(layers_dict = layers_dict, customize_layers = layers)
+        (nodes, conexions) = data.generate_frame3dd_data(layers_dict = layers_dict, customize_layers = layers)
+    else:
+        layers_dict = data.unite_by_layers(modelspace_list = normalized_data)
+        (nodes, conexions) = data.generate_frame3dd_data(layers_dict = layers_dict)
 
     return (nodes, conexions, layers_dict)

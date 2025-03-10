@@ -193,6 +193,31 @@ class dxf_extraction():
             })
         
         return layers_dict
+
+    def unite_by_layers(self, modelspace_list: list) -> dict:
+        '''
+        Une as informações da estrutura em apenas uma camadas.
+
+        Args:
+            modelspace_list (list): Lista contendo as informações da estrutura.
+        
+        Returns:
+
+        '''
+
+        layers_dict = dict()
+
+        for element in modelspace_list:
+            layer = '0'
+            if layer not in layers_dict:
+                layers_dict[layer] = list() 
+        
+            layers_dict[layer].append({
+                'start_point': element['start_point'],
+                'end_point': element['end_point']
+            })
+        
+        return layers_dict
     
     def combine_layers(self, layers_dict: dict, new_layers_info: dict) -> dict:
         '''

@@ -199,7 +199,7 @@ def plot_by_nodes_and_conexions_streamlit(nodes_list, conexions_list):
 
     return fig
 
-def plot_by_layers_streamlit(nodes_list, conexions_list, layers_dict):
+def plot_by_layers_streamlit(nodes_list, conexions_list, layers_dict, visualize_IDs = False):
     '''
     Visualiza a estrutura em 3D com Plotly e Streamlit, separando os elementos por camadas.
 
@@ -218,13 +218,22 @@ def plot_by_layers_streamlit(nodes_list, conexions_list, layers_dict):
     # Criando a figura
     fig = go.Figure()
 
-    # Adicionando nós como esferas vermelhas
-    fig.add_trace(go.Scatter3d(
-        x=points[:, 0], y=points[:, 1], z=points[:, 2],
-        mode='markers',
-        marker=dict(size=2, color='black'),
-        name='Nós'
-    ))
+    if visualize_IDs ==  True:
+        # Adicionando nós como esferas vermelhas
+        fig.add_trace(go.Scatter3d(
+            x=points[:, 0], y=points[:, 1], z=points[:, 2],
+            mode='markers+text',  # Modo para mostrar marcadores e texto
+            text=node_labels,  # Texto (IDs) a ser exibido
+            textposition="top center",  # Posição do texto em relação ao marcador
+            marker=dict(size=2, color='black'),
+        ))
+    else:
+        # Adicionando nós como esferas vermelhas
+        fig.add_trace(go.Scatter3d(
+            x=points[:, 0], y=points[:, 1], z=points[:, 2],
+            mode='markers',  # Modo para mostrar marcadores e texto
+            marker=dict(size=2, color='black'),
+        ))
 
     # Adicionando conexões por camada
     layer_colors = {layer: generate_color() for layer in layers_dict}

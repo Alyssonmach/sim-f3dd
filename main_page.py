@@ -31,7 +31,7 @@ def page1():
         st.session_state['nodes'] = nodes
         st.session_state['conexions'] = conexions
         st.session_state['layers_dict'] = layers_dict
-        st.session_state['plotter'] = plot_by_layers_streamlit(nodes_list = nodes, conexions_list = conexions, layers_dict = layers_dict)
+        st.session_state['plotter'] = plot_by_layers_streamlit(nodes_list = nodes, conexions_list = conexions, layers_dict = layers_dict, visualize_IDs = True)
     else:
         nodes = st.session_state['nodes']
         conexions = st.session_state['conexions']
