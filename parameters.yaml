@@ -1,2 +1,2 @@
-model_path: 'models/dxf/Montagem - AX3.dxf'
+model_path: 'models/dxf/completo.dxf'
 layers: ['PES', 'EXTENSAO', 'TRONCO', 'CABECA', 'BRACO', 'PARA']
