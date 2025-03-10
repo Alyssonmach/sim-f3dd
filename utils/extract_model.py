@@ -224,7 +224,7 @@ class dxf_extraction():
 
         return new_layers_dict
 
-    def generate_frame3dd_data(self, layers_dict: dict, customize_layers: list) -> tuple:
+    def generate_frame3dd_data(self, layers_dict: dict, customize_layers = '') -> tuple:
         '''
         Gera dados do modelo para o Frame3DD.
 
@@ -243,6 +243,7 @@ class dxf_extraction():
         nodes_list, conexions_list = list(), list()
 
         for layer, conexions in layers_dict.items():
+            if customize_layers == '': customize_layers = layer
             if layer in customize_layers:
                 for conexion in conexions:
                     start = conexion["start_point"]

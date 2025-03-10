@@ -1,6 +1,6 @@
 from utils.extract_model import dxf_extraction
 
-def prepare_model(dxf_path: str, layers: list) -> tuple:
+def prepare_model(dxf_path: str, layers = '') -> tuple:
     '''
     Function that prepares the model for simulation.
 
@@ -21,9 +21,10 @@ def prepare_model(dxf_path: str, layers: list) -> tuple:
     #modelspace_list = data.convert_m_to_mm(modelspace_list = modelspace_list)
     normalized_data = data.normalize_data(modelspace_list = modelspace_list)
     layers_dict = data.separete_by_layers(modelspace_list = normalized_data)
-    combination_layers_name = data.combine_layers_names(name_layers = layers_name, ignored_layers = ['0', 'Defpoints'])
-    layers_dict_correct = data.combine_layers(layers_dict = layers_dict, new_layers_info = combination_layers_name)
+    if layers != '':
+        combination_layers_name = data.combine_layers_names(name_layers = layers_name, ignored_layers = ['0', 'Defpoints'])
+        layers_dict = data.combine_layers(layers_dict = layers_dict, new_layers_info = combination_layers_name)
 
-    (nodes, conexions) = data.generate_frame3dd_data(layers_dict = layers_dict_correct, customize_layers = layers)
+    (nodes, conexions) = data.generate_frame3dd_data(layers_dict = layers_dict, customize_layers = layers)
 
-    return (nodes, conexions, layers_dict_correct)
+    return (nodes, conexions, layers_dict)
