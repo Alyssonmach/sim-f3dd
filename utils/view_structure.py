@@ -214,7 +214,7 @@ def plot_by_layers_streamlit(nodes_list, conexions_list, layers_dict):
 
     # Extraindo coordenadas dos nós
     points = np.array([no[1:] for no in nodes_list])  # Apenas coordenadas X, Y, Z
-
+    node_labels = [str(no[0]) for no in nodes_list]  # IDs dos nós como texto
     # Criando a figura
     fig = go.Figure()
 
@@ -222,7 +222,7 @@ def plot_by_layers_streamlit(nodes_list, conexions_list, layers_dict):
     fig.add_trace(go.Scatter3d(
         x=points[:, 0], y=points[:, 1], z=points[:, 2],
         mode='markers',
-        marker=dict(size=1, color='black'),
+        marker=dict(size=2, color='black'),
         name='Nós'
     ))
 
@@ -243,6 +243,7 @@ def plot_by_layers_streamlit(nodes_list, conexions_list, layers_dict):
             line=dict(color=f'rgb({layer_colors[layer][0]*255}, {layer_colors[layer][1]*255}, {layer_colors[layer][2]*255})', width=2),
             name=f'Conexões {layer}'
         ))
+
 
     # Configurando a visualização
     fig.update_layout(

@@ -172,3 +172,26 @@ class configure_models():
         '''
 
         return self.__extract_modelspaces(self.get_modelspaces())
+
+
+def test():
+    
+    data = configure_models(models_path = 'models/dxf')
+
+    files = data.get_dxf_files()
+    print(f'Modelos Existentes: {len(files)}')
+
+    for file in files:
+        print(file)
+    print('--\n')
+    
+    modelspaces = data.get_modelspace_extraction()
+
+    print('Exemplos dos dados dos modelspaces:')
+    for modelspace in modelspaces:
+        for value in modelspace:
+            print(value)
+            break
+
+if __name__ == '__main__':
+    test()

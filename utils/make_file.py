@@ -13,14 +13,15 @@ def make_3dd(data, nodes, conexions):
         
         file.write('# node data ...\n\n')
         file.write(f'{len(nodes)}\t # number of nodes\n\n')
-        file.write('#.node    x         y         z         r\n#.n       m         m         m         m\n\n')
+        file.write('#.node    x         y         z         r\n#.n       mm         mm         mm         mm\n\n')
         for node in nodes:
             file.write(f'{round(node[0], 2)}   {round(node[1], 2)}   {round(node[2], 2)}   {round(node[3], 2)}   0.00\n')
         file.write('\n')
 
         reaction_nodes = list()
+        menor_z = min(node[3] for node in nodes)
         for node in nodes:
-            if node[3] == 0: reaction_nodes.append(node[0])
+            if node[3] == menor_z: reaction_nodes.append(node[0])
         file.write(f'{len(reaction_nodes)}\t # number of nodes with reactions\n')
         file.write(f'#.n    x   y   z   xx  yy  zz      1=fixed, 0=free\n\n')
         for reaction in reaction_nodes:
@@ -33,7 +34,7 @@ def make_3dd(data, nodes, conexions):
             if element[1] != element[2]: count += 1
         file.write(f'{count}\t # number of frame elements\n')
         file.write('#.m   n1   n2   Ax   Asy   Asz   Jxx   Iyy   Izz   E   G   p   density\n')
-        file.write('#     .    .    m^2  m^2   m^2   m^4   m^4   m^4   MPa MPa deg tonne/m^3\n\n')
+        file.write('#     .    .    mm^2  mm^2   mm^2   mm^4   mm^4   mm^4   MPa MPa deg tonne/mm^3\n\n')
 
         Ax = data['conexions_parameters']['Ax']
         Asy = data['conexions_parameters']['Asy']
@@ -57,18 +58,18 @@ def make_3dd(data, nodes, conexions):
         file.write(f'{data["render_parameters"]["geometric_stiffness"]}\t # 1: include geometric stiffness\n')  
         file.write(f'{data["render_parameters"]["exaggerate_static_mesh_deformations"]}\t # exaggerate static mesh deformations\n')
         file.write(f'{data["render_parameters"]["zoom_scale"]}\t # zoom scale for 3D plotting\n')
-        file.write(f'{data["render_parameters"]["x_axis_increment"]}\t # x-axis increment for internal force data, m\n\n')
+        file.write(f'{data["render_parameters"]["x_axis_increment"]}\t # x-axis increment for internal force data, mm\n\n')
 
         file.write('1                               # number of static load cases\n\n')
         file.write('# Begin Static Load Case 1 of 1\n\n')
         file.write('# gravitational acceleration for self-weight loading (global)\n')
         file.write('#   gX         gY         gZ\n')
-        file.write('#   m/s^2     m/s^2     m/s^2\n\n')
+        file.write('#   mm/s^2     mm/s^2     mm/s^2\n\n')
         file.write(f'    {data["gravity"]["Gx"]}         {data["gravity"]["Gy"]}         {data["gravity"]["Gz"]}\n\n')
 
         file.write(f'{len(data["nodal_loads"]["loaded_nodes"])}\t # number of nodal loads\n')
         file.write('# .node  X-load   Y-load   Z-load   X-mom     Y-mom     Z-mom\n')
-        file.write('#         N        N        N        N.m      N.m      N.m\n\n')
+        file.write('#         N        N        N        N.mm      N.mm      N.mm\n\n')
         if len(data["nodal_loads"]["loaded_nodes"]) > 0:
             for node in data["nodal_loads"]["loaded_nodes"]:
                 file.write(f'{node}\t\t{data["nodal_loads"]["X_load"]}\t\t{data["nodal_loads"]["Y_load"]}\t\t{data["nodal_loads"]["Z_load"]}\t\t')
@@ -77,7 +78,7 @@ def make_3dd(data, nodes, conexions):
 
         file.write(f'{len(data["distributed_loads"]["loaded_elements"])}\t # number of uniform distributed loads\n')
         file.write('#..j      Ux         Uy      Uz\n')
-        file.write('#.frame   N/m       N/m    N/m\n')
+        file.write('#.frame   N/mm       N/mm    N/mm\n')
         if len(data["distributed_loads"]["loaded_elements"]) > 0:
             for element in data["distributed_loads"]["loaded_elements"]:
                 file.write(f'{element}\t\t{data["distributed_loads"]["Ux"]}\t\t{data["distributed_loads"]["Uy"]}\t\t{data["distributed_loads"]["Uz"]}\n')

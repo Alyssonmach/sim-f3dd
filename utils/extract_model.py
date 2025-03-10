@@ -152,7 +152,12 @@ class dxf_extraction():
         '''
 
         all_coords = [np.array(d['start_point']) for d in modelspace_list] + [np.array(d['end_point']) for d in modelspace_list]
-        ref_coord = np.min(all_coords, axis = 0)
+        # utiliza o valor mais próximo de 0
+        # ref_coord = np.min(all_coords, axis = 0)
+        # Calcula a média das coordenadas x, y
+        # ref_coord = np.mean([coord[0] for coord in all_coords])  
+        # Calcula a média das coordenadas x, y, z
+        ref_coord = np.mean(all_coords, axis=0)
 
         normalized_data = list()
         for element in modelspace_list:
