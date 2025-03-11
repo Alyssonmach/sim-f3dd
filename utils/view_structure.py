@@ -226,6 +226,7 @@ def plot_by_layers_streamlit(nodes_list, conexions_list, layers_dict, visualize_
             text=node_labels,  # Texto (IDs) a ser exibido
             textposition="top center",  # Posição do texto em relação ao marcador
             marker=dict(size=2, color='black'),
+            visible='legendonly'
         ))
     else:
         # Adicionando nós como esferas vermelhas
@@ -273,4 +274,3 @@ def plot_by_layers_streamlit(nodes_list, conexions_list, layers_dict, visualize_
     )
 
     return fig
-

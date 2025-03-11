@@ -1,6 +1,6 @@
 from utils.extract_model import dxf_extraction
 
-def prepare_model(dxf_path: str, layers = '') -> tuple:
+def prepare_model(dxf_path: str, layers = '', apply_scale = False) -> tuple:
     '''
     Function that prepares the model for simulation.
 
@@ -18,7 +18,8 @@ def prepare_model(dxf_path: str, layers = '') -> tuple:
 
     layers_name = data.get_layers_name()
     modelspace_list = data.extract_modelspace(msp = msp)
-    #modelspace_list = data.convert_m_to_mm(modelspace_list = modelspace_list)
+    if apply_scale:
+        modelspace_list = data.convert_m_to_mm(modelspace_list = modelspace_list)
     normalized_data = data.normalize_data(modelspace_list = modelspace_list)
     layers_dict = data.separete_by_layers(modelspace_list = normalized_data)
     if layers != '':

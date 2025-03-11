@@ -24,7 +24,7 @@ def page2():
         st.success(f"Arquivo salvo em: {file_path}")
 
         if 'nodes_exp' not in st.session_state or 'conexions_exp' not in st.session_state or 'layers_dict_exp' not in st.session_state:
-            (nodes, conexions, layers_dict) = prepare_model(dxf_path = f'{file_path}')
+            (nodes, conexions, layers_dict) = prepare_model(dxf_path = f'{file_path}', apply_scale = True)
             st.session_state['nodes_exp'] = nodes
             st.session_state['conexions_exp'] = conexions
             st.session_state['layers_dict_exp'] = layers_dict
